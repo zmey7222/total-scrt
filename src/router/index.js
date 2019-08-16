@@ -15,6 +15,9 @@ import ClientTable from '../components/clienttable.vue';
 import ProjectTable from '../components/projecttable.vue';
 import TypeOfTasks from '../components/typeOfTasks.vue';
 import StatusOfProject from '../components/statusOfProject.vue';
+import EditProject from '../components/editProject.vue';
+
+
 
 Vue.use(Router);
 
@@ -107,6 +110,18 @@ export default new Router({
         ]
       }
     },
+    {
+      path: '/editproject',
+      name: 'EditProject',
+      component: EditProject,
+      meta: {
+        breadcrumb: [
+          { name: 'Dashboard', href: 'Dashboard' },
+          { name: 'EditProject'}
+        ]
+      }
+    },
+
     {
       path: '/typeoftasks',
       name: 'TypeOfTasks',
