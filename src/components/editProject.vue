@@ -557,20 +557,92 @@
         </v-container>
       </v-tab-item>
 
-      <!-- Формуляр -->
+      <!-- абонплата -->
       <v-tab-item>
-        <v-card flat>
-        <!--  <v-card-title class="headline">An even better title</v-card-title>-->
-          <v-card-text>
-            <p>
-              Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed hendrerit. Maecenas malesuada. Vestibulum ullamcorper mauris at ligula. Proin faucibus arcu quis ante.
-            </p>
+        <v-container fluid>
 
-            <p class="mb-0">
-              Etiam vitae tortor. Curabitur ullamcorper ultricies nisi. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Aliquam lobortis. Suspendisse potenti.
-            </p>
-          </v-card-text>
-        </v-card>
+          <v-layout row justify-space-between> 
+
+            <v-flex md3>
+              <v-text-field
+                v-model="abonent_payment"
+                :rules="[rules.required]"
+                filled
+                clearable
+                clearable-icon
+                :color="$root.themeColor"
+                label="Абонплата, всего"
+                style="min-height: 96px"
+              ></v-text-field>            
+            </v-flex>
+
+            <v-flex md3>
+              <v-select
+                v-model="abonent_type_payment"
+                :items="abonent_type_payment_items"
+                :color="$root.themeColor"
+                filled
+                label="Тип оплаты"
+                outlined
+              ></v-select>              
+            </v-flex>
+
+            <v-flex md3>
+              <v-text-field
+                v-model="abonent_payment_liability"
+                :rules="[rules.required]"
+                filled
+                clearable
+                clearable-icon
+                :color="$root.themeColor"
+                label="Материальная ответственность"
+                style="min-height: 96px"
+              ></v-text-field>            
+            </v-flex>
+          </v-layout>
+
+          <v-layout row justify-space-between> 
+            <v-flex md3>
+              <v-text-field
+                v-model="abonent_payment_base"
+                :rules="[rules.required]"
+                filled
+                clearable
+                clearable-icon
+                :color="$root.themeColor"
+                label="Базовая оплата за охрану"
+                style="min-height: 96px"
+              ></v-text-field>            
+            </v-flex>
+
+            <v-flex md3>
+              <v-text-field
+                v-model="abonent_payment_checkout"
+                :rules="[rules.required]"
+                filled
+                clearable
+                clearable-icon
+                :color="$root.themeColor"
+                label="Кол.допвыездов ГБР"
+                style="min-height: 96px"
+              ></v-text-field>            
+            </v-flex>
+
+            <v-flex md3>
+              <v-text-field
+                v-model="abonent_payment_checkout_payment"
+                :rules="[rules.required]"
+                filled
+                clearable
+                clearable-icon
+                :color="$root.themeColor"
+                label="Стоимоть допвыездов ГБР"
+                style="min-height: 96px"
+              ></v-text-field>            
+            </v-flex>
+
+          </v-layout>
+        </v-container>
       </v-tab-item>
 
     </v-tabs-items>
@@ -679,6 +751,13 @@
       contract_confidant_3: undefined,
       contract_confidant_4: undefined,
 
+      abonent_payment: undefined,
+      abonent_type_payment: 'Не определен',
+      abonent_type_payment_items: ['Не определен', 'Наличный расчет', 'Безнал расчет (с НДС)', 'Безнал расчет (без НДС)'],
+      abonent_payment_liability: undefined,
+      abonent_payment_base: undefined,
+      abonent_payment_checkout: undefined,
+      abonent_payment_checkout_payment: undefined,
 
 rules: {
               email: v => (v || '').match(/@/) || 'Введите корректный email',
