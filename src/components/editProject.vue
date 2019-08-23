@@ -69,6 +69,13 @@
         <project-payment></project-payment>
       </v-tab-item>
 
+      <v-tab-item>
+        <project-mounting></project-mounting>
+      </v-tab-item>
+
+      <v-tab-item>
+        <project-formular></project-formular>
+      </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
@@ -80,11 +87,13 @@
   import ProjectObject from './projectObject.vue'
   import ProjectContract from './projectContract.vue'
   import ProjectPayment from './projectPayment.vue'
+  import ProjectMounting from './projectMounting.vue'
+  import ProjectFormular from './projectFormular.vue'
 
   export default {
 
     components: {
-        ProjectBasic, ProjectClient, ProjectObject, ProjectContract, ProjectPayment 
+        ProjectBasic, ProjectClient, ProjectObject, ProjectContract, ProjectPayment, ProjectMounting, ProjectFormular 
     },
 
     methods: {},

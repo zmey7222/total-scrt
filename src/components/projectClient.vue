@@ -13,17 +13,29 @@
             </v-flex>
 
             <v-flex md8>
-            <!--<v-col cols="12" sm="6">-->
-              <v-text-field
-                v-model="client_name"
-                clearable
-                clearable-icon
-                filled
-                :color="$root.themeColor"
-                label="Наименование"
-                style="min-height: 96px"
-              ></v-text-field>            
-            <!--</v-col>-->
+              <v-dialog
+                v-model="modal"
+                :return-value.sync="client_name"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                persistent
+                full-width
+                width="500px"   
+              >
+                <template slot="activator">
+                  <v-text-field
+                    v-model="client_name"
+                    label="Клиент"
+                    prepend-icon="mdi-account-multiple-plus"
+                    readonly
+                    @ret='onRet'
+                  ></v-text-field>
+                </template>
+
+                <template>
+                  <client-list></client-list>
+                </template>
+              </v-dialog>
             </v-flex>
           </v-layout>
 
@@ -58,7 +70,7 @@
             <v-flex md2>
               <v-text-field
                 v-model="phone"
-                :rules="[rules.required, rules.digit, rules.length(10)]"
+                :rules="[rules.required, rules.phone, rules.length(10)]"
                 clearable
                 clearable-icon
                 filled
@@ -124,7 +136,16 @@
 
 
 <script>
+
+import ClientList from './clientList.vue'
+
+
 export default {
+
+    components: {
+        ClientList
+    },
+
     methods: {
       clear_client() {
         const vm = this;
@@ -140,6 +161,11 @@ export default {
         alert('Данные сохранены...');
       },
 
+      onRet(data){
+        client_name= data.name;
+        dialog_client_list= data.dialog_client_list;
+      },
+
     },
 
     data: () => ({
@@ -153,14 +179,18 @@ export default {
       email: undefined,
       address:undefined,
       tabs:null,
+      modal:false,
+      dialog_client_list:false,
 
       rules: {
               email: v => (v || '').match(/@/) || 'Введите корректный email',
               length: len => v => (v || '').length >= len || `Минимальное количество цифр ${len}`,
               //egrpou: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
-              digit: v => (v || '').match(/^(?=.*\d).+$/) ||'Поле должно содержать только цифры',
+              digit: v => (v || '').match(/(?<=^| )\d+(\.\d+)?(?=$| )/) ||'Поле должно содержать только цифры',
+              phone: v => (v || '').match(/(\s*)?(\+)?([- _():=+]?\d[- ():=+]?){10,14}(\s*)?/) ||'Формат номера +38(0XX)XXX-XX-XX',
+
               required: v => !!v || 'Поле, обязательное для заполнения',
-             },   
+      },   
 
       
     }),       
